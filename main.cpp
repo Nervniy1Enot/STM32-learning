@@ -1,6 +1,6 @@
 #include <stdint.h>
 #include <stdbool.h>
-#include "stm32f10x.h"
+#include "drivers\CMSIS\DeviceSupport\ST\STM32F10x\stm32f10x.h"
 
 
 void UART_sendstring(char str[60]) {

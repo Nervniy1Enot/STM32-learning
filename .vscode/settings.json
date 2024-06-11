@@ -4,5 +4,6 @@
         "bitset": "cpp",
         "string_view": "cpp",
         "system_error": "cpp"
-    }
+    },
+    "disasexpl.useBinaryParsing": true
 }
