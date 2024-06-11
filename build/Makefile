@@ -70,84 +70,73 @@ edit_cache:
 	E:\cmake-3.28.3-windows-x86_64\bin\cmake-gui.exe -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+.PHONY : edit_cache/fast
+
 # Special rule for the target rebuild_cache
 rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake to rebuild cache"
-	$(CMAKE_COMMAND) -S $(CMAKE_SOURCE_DIR) -B $(CMAKE_BINARY_DIR)
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake to regenerate build system..."
+	E:\cmake-3.28.3-windows-x86_64\bin\cmake.exe --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
-# Special rule for the target clean
-clean:
-	@$(CMAKE_COMMAND) -P $(CMAKE_BINARY_DIR)/cmake_clean.cmake
-.PHONY : clean
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+.PHONY : rebuild_cache/fast
 
-# Special rule for the target depend
-depend:
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running dependency checker"
-	$(CMAKE_COMMAND) -S $(CMAKE_SOURCE_DIR) -B $(CMAKE_BINARY_DIR)
-.PHONY : depend
-
-# Special rule for the target all
-all: $(CMAKE_BINARY_DIR)/FIRST.lss $(CMAKE_BINARY_DIR)/FIRST.lssd
+# The main all target
+all: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\proj\test\build\CMakeFiles E:\proj\test\build\\CMakeFiles\progress.marks
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
+	$(CMAKE_COMMAND) -E cmake_progress_start E:\proj\test\build\CMakeFiles 0
 .PHONY : all
 
-# The main build target
-$(CMAKE_BINARY_DIR)/FIRST.elf: $(CMAKE_BINARY_DIR)/FIRST.elf.dir/objects.a
-	# ваши команды для создания ELF файла
+# The main clean target
+clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 clean
+.PHONY : clean
 
-# Additional rules for .lss and .lssd files
-PREFIX = # укажите ваш префикс, если он есть
-DUMP = $(PREFIX)objdump
+# The main clean target
+clean/fast: clean
+.PHONY : clean/fast
 
-LSS = $(DUMP) -h -S -z
-LSSD = $(DUMP) -h -d
+# Prepare targets for installation.
+preinstall: all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 preinstall
+.PHONY : preinstall
 
-$(CMAKE_BINARY_DIR)/%.lss: $(CMAKE_BINARY_DIR)/%.elf | $(CMAKE_BINARY_DIR)
-	$(LSS) $< > $@
+# Prepare targets for installation.
+preinstall/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 preinstall
+.PHONY : preinstall/fast
 
-$(CMAKE_BINARY_DIR)/%.lssd: $(CMAKE_BINARY_DIR)/%.elf | $(CMAKE_BINARY_DIR)
-	$(LSSD) $< > $@
-
-$(CMAKE_BINARY_DIR)/FIRST.lss: $(CMAKE_BINARY_DIR)/FIRST.elf
-$(CMAKE_BINARY_DIR)/FIRST.lssd: $(CMAKE_BINARY_DIR)/FIRST.elf
-
-# Help Target
-help:
-	@echo The following are some of the valid targets for this Makefile:
-	@echo ... all (the default if no target is provided)
-	@echo ... clean
-	@echo ... depend
-	@echo ... edit_cache
-	@echo ... rebuild_cache
-	@echo ... FIRST.elf
-	@echo ... cmsis
-	@echo ... main.obj
-	@echo ... main.i
-	@echo ... main.s
-	@echo ... startup_stm32f100rbtx.obj
-.PHONY : help
+# clear depends
+depend:
+	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 1
+.PHONY : depend
 
 #=============================================================================
-# Special targets to cleanup operation of make.
+# Target rules for targets named FIRST.elf
 
-# Special rule to run CMake to check the build system integrity.
-# No rule that depends on this can have commands that come from listfiles
-# because they might be regenerated.
-cmake_check_build_system:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 0
-.PHONY : cmake_check_build_system
+# Build rule for target.
+FIRST.elf: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 FIRST.elf
+.PHONY : FIRST.elf
 
-# Include the dependencies for the first target
--include CMakeFiles/Makefile.cmake
+# fast build rule for target.
+FIRST.elf/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\FIRST.elf.dir\build.make CMakeFiles/FIRST.elf.dir/build
+.PHONY : FIRST.elf/fast
 
-# Include the targets from the cmake build file
--include CMakeFiles/CMakeDirectoryInformation.cmake
+#=============================================================================
+# Target rules for targets named cmsis
 
-# The remaining rules and targets
-cmsis: drivers/CMSIS/CMakeFiles/cmsis.dir/build.make
-	$(MAKE) $(MAKESILENT) -f drivers\CMSIS\CMakeFiles\cmsis.dir\build.make drivers/CMSIS/CMakeFiles/cmsis.dir/build
+# Build rule for target.
+cmsis: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 cmsis
 .PHONY : cmsis
 
+# fast build rule for target.
 cmsis/fast:
 	$(MAKE) $(MAKESILENT) -f drivers\CMSIS\CMakeFiles\cmsis.dir\build.make drivers/CMSIS/CMakeFiles/cmsis.dir/build
 .PHONY : cmsis/fast
@@ -183,3 +172,32 @@ startup_stm32f100rbtx.obj: startup_stm32f100rbtx.s.obj
 startup_stm32f100rbtx.s.obj:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\FIRST.elf.dir\build.make CMakeFiles/FIRST.elf.dir/startup_stm32f100rbtx.s.obj
 .PHONY : startup_stm32f100rbtx.s.obj
+
+# Help Target
+help:
+	@echo The following are some of the valid targets for this Makefile:
+	@echo ... all (the default if no target is provided)
+	@echo ... clean
+	@echo ... depend
+	@echo ... edit_cache
+	@echo ... rebuild_cache
+	@echo ... FIRST.elf
+	@echo ... cmsis
+	@echo ... main.obj
+	@echo ... main.i
+	@echo ... main.s
+	@echo ... startup_stm32f100rbtx.obj
+.PHONY : help
+
+
+
+#=============================================================================
+# Special targets to cleanup operation of make.
+
+# Special rule to run CMake to check the build system integrity.
+# No rule that depends on this can have commands that come from listfiles
+# because they might be regenerated.
+cmake_check_build_system:
+	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles\Makefile.cmake 0
+.PHONY : cmake_check_build_system
+

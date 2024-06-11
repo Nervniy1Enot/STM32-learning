@@ -13,7 +13,6 @@ void UART_sendstring(char str[60]) {
 }
 
 int main() {
-    //s
     //------------------UART----------------
     // Включаем тактирование для USART1 и GPIOA
     RCC->APB2ENR |= RCC_APB2ENR_USART1EN;  // USART1
