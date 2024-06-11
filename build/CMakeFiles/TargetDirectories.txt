@@ -1,0 +1,6 @@
+E:/proj/test/build/CMakeFiles/FIRST.elf.dir
+E:/proj/test/build/CMakeFiles/edit_cache.dir
+E:/proj/test/build/CMakeFiles/rebuild_cache.dir
+E:/proj/test/build/drivers/CMSIS/CMakeFiles/cmsis.dir
+E:/proj/test/build/drivers/CMSIS/CMakeFiles/edit_cache.dir
+E:/proj/test/build/drivers/CMSIS/CMakeFiles/rebuild_cache.dir
