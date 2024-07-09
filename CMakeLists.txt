@@ -57,6 +57,7 @@ target_compile_options(${EXECUTABLE} PRIVATE
     -Wall
 
     -O
+    -g
 )
 
 add_custom_command(TARGET ${EXECUTABLE}
@@ -69,4 +70,7 @@ add_custom_command(TARGET ${EXECUTABLE}
     POST_BUILD
     COMMAND arm-none-eabi-objcopy -Oihex ${EXECUTABLE} ${PROJECT_NAME}.hex
     COMMAND arm-none-eabi-objcopy -Obinary ${EXECUTABLE} ${PROJECT_NAME}.bin
+    COMMAND arm-none-eabi-objdump -h -S -z ${EXECUTABLE} > ${PROJECT_NAME}.lssz
+    COMMAND arm-none-eabi-objdump -h -d ${EXECUTABLE} > ${PROJECT_NAME}.lss
+    COMMAND
 )

@@ -23,6 +23,21 @@ CMAKE_ADDR2LINE:FILEPATH=E:/Program Files/msys64/mingw64/bin/arm-none-eabi-addr2
 //Path to a program.
 CMAKE_AR:FILEPATH=E:/Program Files/msys64/mingw64/bin/arm-none-eabi-ar.exe
 
+//Flags used by the ASM compiler during all build types.
+CMAKE_ASM_FLAGS:STRING=
+
+//Flags used by the ASM compiler during DEBUG builds.
+CMAKE_ASM_FLAGS_DEBUG:STRING=-g
+
+//Flags used by the ASM compiler during MINSIZEREL builds.
+CMAKE_ASM_FLAGS_MINSIZEREL:STRING=-Os -DNDEBUG
+
+//Flags used by the ASM compiler during RELEASE builds.
+CMAKE_ASM_FLAGS_RELEASE:STRING=-O3 -DNDEBUG
+
+//Flags used by the ASM compiler during RELWITHDEBINFO builds.
+CMAKE_ASM_FLAGS_RELWITHDEBINFO:STRING=-O2 -g -DNDEBUG
+
 //Choose the type of build, options are: None Debug Release RelWithDebInfo
 // MinSizeRel ...
 CMAKE_BUILD_TYPE:STRING=
@@ -215,6 +230,15 @@ FIRST_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 FIRST_SOURCE_DIR:STATIC=E:/proj/test
 
+//Value Computed by CMake
+cmsis_BINARY_DIR:STATIC=E:/proj/test/build/drivers/CMSIS
+
+//Value Computed by CMake
+cmsis_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+cmsis_SOURCE_DIR:STATIC=E:/proj/test/drivers/CMSIS
+
 
 ########################
 # INTERNAL cache entries
@@ -224,6 +248,16 @@ FIRST_SOURCE_DIR:STATIC=E:/proj/test
 CMAKE_ADDR2LINE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_AR
 CMAKE_AR-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_ASM_FLAGS
+CMAKE_ASM_FLAGS-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_ASM_FLAGS_DEBUG
+CMAKE_ASM_FLAGS_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_ASM_FLAGS_MINSIZEREL
+CMAKE_ASM_FLAGS_MINSIZEREL-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_ASM_FLAGS_RELEASE
+CMAKE_ASM_FLAGS_RELEASE-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: CMAKE_ASM_FLAGS_RELWITHDEBINFO
+CMAKE_ASM_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //This is the directory where this CMakeCache.txt was created
 CMAKE_CACHEFILE_DIR:INTERNAL=e:/proj/test/build
 //Major version of cmake used to create the current loaded cache
@@ -314,11 +348,9 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=1
-//ADVANCED property for variable: CMAKE_OBJCOPY
-CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=2
 //objcopy tool
-CMAKE_OBJCOPY:INTERNAL=E:/Program Files/msys64/mingw64/bin/arm-none-eabi-objcopy
+CMAKE_OBJCOPY:INTERNAL=E:/Program Files/msys64/mingw64/bin/arm-none-eabi-objcopy.exe
 //ADVANCED property for variable: CMAKE_OBJDUMP
 CMAKE_OBJDUMP-ADVANCED:INTERNAL=1
 //Platform information initialized
@@ -340,7 +372,7 @@ CMAKE_SHARED_LINKER_FLAGS_RELEASE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO
 CMAKE_SHARED_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //size tool
-CMAKE_SIZE_UTIL:INTERNAL=E:/Program Files/msys64/mingw64/bin/arm-none-eabi-size
+CMAKE_SIZE_UTIL:INTERNAL=E:/Program Files/msys64/mingw64/bin/arm-none-eabi-size.exe
 //ADVANCED property for variable: CMAKE_SKIP_INSTALL_RPATH
 CMAKE_SKIP_INSTALL_RPATH-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_SKIP_RPATH

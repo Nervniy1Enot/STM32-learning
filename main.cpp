@@ -1,15 +1,100 @@
 #include <stdint.h>
 #include <stdbool.h>
+#include <string.h>
 #include "drivers\CMSIS\DeviceSupport\ST\STM32F10x\stm32f10x.h"
 
+#define BUFFER_SIZE 4
 
-void UART_sendstring(char str[60]) {
-    uint8_t i = 0;
-    while (str[i] != '\0') {
+void UART_sendstring(const char *str) {
+    while (*str) {
         while (!(USART1->SR & USART_SR_TXE));
-        USART1->DR = str[i++];
+        USART1->DR = *str++;
     }
+}
+
+void brightness_message_b(const char buffer[]) {
+    char message[60] = "\r\nThe brightness of the blue LED is set to ";
+
+    message[43] = buffer[1];
+    message[44] = buffer[2];
+    message[45] = ' ';
+    message[46] = '%';
+    message[47] = '\r'; 
+    message[48] = '\n';
+    message[49] = '\0';
+
+    UART_sendstring(message);
+}
+
+void brightness_message_g(const char buffer[]) {
+    char message[60] = "\r\nThe brightness of the green LED is set to ";
+
+    message[44] = buffer[1];
+    message[45] = buffer[2];
+    message[46] = ' ';
+    message[47] = '%';
+    message[48] = '\r';
+    message[49] = '\n';
+    message[50] = '\0';
+
+
+    UART_sendstring(message);
+}
+
+void brightness_message_bg(const char buffer[]) {
+    char message[60] = "\r\nThe brightness of both LEDs is set to ";
+
+    message[40] = buffer[2];
+    message[41] = buffer[3];
+    message[42] = ' ';
+    message[43] = '%';
+    message[44] = '\r';
+    message[45] = '\n';
+    message[46] = '\0';
+
+    UART_sendstring(message);
+}
+
+void invalid_command_message(const char buffer[]) {
+    char message[60] = "\r\nInvalid command ";
+    uint8_t index = 18;
+
+    for (int i = 0; i < 4; i++) {
+        if (buffer[i] != '\0') {
+            message[index++] = buffer[i];
+        }
+    }
+
+    message[index++] = '\r';
+    message[index++] = '\n';
+    message[index] = '\0';
+
+    UART_sendstring(message);
+}
+
+void info_message(const uint8_t b, const uint8_t g) {
+    char message[60];
+    strcpy(message, "\r\nBrightness of blue LED - ");
+    uint8_t index = 27;
     
+    message[index++] = '0' + (b / 10);
+    message[index++] = '0' + (b % 10);
+    message[index++] = '\r';
+    message[index++] = '\n';
+    message[index] = '\0';
+
+    UART_sendstring(message);
+
+    strcpy(message, "Brightness of green LED - ");
+    index = 26;
+    
+    message[index++] = '0' + (g / 10);
+    message[index++] = '0' + (g % 10);
+    message[index++] = '\r';
+    message[index++] = '\n';
+    message[index] = '\0';
+
+    UART_sendstring(message);
 }
 
 int main() {
@@ -18,7 +103,7 @@ int main() {
     RCC->APB2ENR |= RCC_APB2ENR_USART1EN;  // USART1
     RCC->APB2ENR |= RCC_APB2ENR_IOPAEN;    // GPIOA
 
-    // Настройка GPIO для USART1 Tx (PA9) и Rx (PA10)
+    // Настройка GPIO для USART1 Tx (PA9) и Rx (PA10) 
     GPIOA->CRH &= ~GPIO_CRH_CNF9;
     GPIOA->CRH |= GPIO_CRH_CNF9_1 | GPIO_CRH_MODE9;
 
@@ -27,9 +112,8 @@ int main() {
     GPIOA->BSRR |= GPIO_BSRR_BS10;
 
     // Настройка USART1
-    USART1->BRR = 2500; // Настройка скорости передачи: 9600 при тактовой частоте 24 MHz
-    USART1->CR1 = USART_CR1_UE | USART_CR1_TE | USART_CR1_RE; // Включить USART, передатчик и приемник
-
+    USART1->BRR = 2500; //9600 = 24МГц/(16*2500)
+    USART1->CR1 = USART_CR1_UE | USART_CR1_TE | USART_CR1_RE; 
     //--------------------GPIO--------------
     RCC->APB2ENR |= RCC_APB2ENR_IOPCEN; // Включаем тактирование для GPIOC
     GPIOC->CRH |= GPIO_CRH_MODE8;       // Настройка PC8 в режим выхода на 50 MHz
@@ -63,98 +147,98 @@ int main() {
     TIM3->CR1 |= TIM_CR1_CEN;
     //--------------------------------------------------
 
-    char buffer[15]; 
+    char buffer[BUFFER_SIZE] = {0}; 
+    char prev_buffer[BUFFER_SIZE] = {0};
     uint8_t buffer_index = 0;
+    char received_char;
+    uint8_t brightness = 0;
+    uint8_t g_brightness = 0;
+    uint8_t b_brightness = 0;
 
     while (1) {
 
         if (USART1->SR & USART_SR_RXNE) {
-            char received_char = USART1->DR;
+            received_char = USART1->DR;
 
             while (!(USART1->SR & USART_SR_TXE));
             USART1->DR = received_char;
-
+        
             if (received_char == '\r' || received_char == '\n') {
                 buffer[buffer_index] = '\0';
                 
                 if (buffer_index == 3 && buffer[0] == 'b' && buffer[1] >= '0' && buffer[1] <= '9' && buffer[2] >= '0' && buffer[2] <= '9') {
-                    uint8_t brightness = ((buffer[1] - '0') << 3) + ((buffer[1] - '0') << 1) + (buffer[2] - '0');
+                    brightness = ((buffer[1] - '0') << 3) + ((buffer[1] - '0') << 1) + (buffer[2] - '0');
 
-                    TIM3->CCR3 = brightness;
+                    TIM3->CCR3 = brightness; //голубой
+
+                    b_brightness = brightness;
                     
-                    char message[60] = "\r\nThe brightness of the blue LED is set to ";
-                    message[43] = buffer[1];
-                    message[44] = buffer[2];
-                    message[45] = ' ';
-                    message[46] = '%';
-                    message[47] = '\r';
-                    message[48] = '\n';
-                    message[49] = '\0';
-                    UART_sendstring(message);
+                    brightness_message_b(buffer);
 
                 } 
                 
                 else if (buffer_index == 3 && buffer[0] == 'g' && buffer[1] >= '0' && buffer[1] <= '9' && buffer[2] >= '0' && buffer[2] <= '9') {
-                    uint8_t brightness = ((buffer[1] - '0') << 3) + ((buffer[1] - '0') << 1) + (buffer[2] - '0');
+                    brightness = ((buffer[1] - '0') << 3) + ((buffer[1] - '0') << 1) + (buffer[2] - '0');
 
-                    TIM3->CCR4 = brightness; 
+                    TIM3->CCR4 = brightness; //зеленый
 
-                    char message[60] = "\r\nThe brightness of the green LED is set to ";
-                    message[44] = buffer[1];
-                    message[45] = buffer[2];
-                    message[46] = ' ';
-                    message[47] = '%';
-                    message[48] = '\r';
-                    message[49] = '\n';
-                    message[50] = '\0';
-                    UART_sendstring(message);
+                    g_brightness = brightness;
+
+                    brightness_message_g(buffer);
                 }
 
                 else if (buffer_index == 4 && ((buffer[0] == 'g' && buffer[1] == 'b') || (buffer[0] == 'b' && buffer[1] == 'g')) 
                           && buffer[2] >= '0' && buffer[2] <= '9' && buffer[3] >= '0' && buffer[3] <= '9') {
-                    uint8_t brightness = ((buffer[2] - '0') << 3) + ((buffer[2] - '0') << 1) + (buffer[3] - '0');
+                    brightness = ((buffer[2] - '0') << 3) + ((buffer[2] - '0') << 1) + (buffer[3] - '0');
 
                     TIM3->CCR3 = brightness;
                     TIM3->CCR4 = brightness;
 
-                    char message[60] = "\r\nThe brightness of both LEDs is set to ";
-                    message[40] = buffer[2];
-                    message[41] = buffer[3];
-                    message[42] = ' ';
-                    message[43] = '%';
-                    message[44] = '\r';
-                    message[45] = '\n';
-                    message[46] = '\0';
-                    UART_sendstring(message);
+                    b_brightness = brightness;
+                    g_brightness = brightness;
+
+                    brightness_message_bg(buffer);
+                }
+                else if (buffer_index == 3 && buffer[0] == 'i' && buffer[1] == 'n' && buffer[2] == 'f') {
+
+                    info_message(g_brightness, b_brightness);
                 }
                 else {
-                    char message[60] = "\r\nInvalid command";
-                    message[18] = buffer[0];
-                    message[19] = buffer[1];
-                    message[20] = buffer[2];
-                    message[21] = buffer[3];
-                    message[22] = '\r';
-                    message[23] = '\n';
-                    message[24] = '\0';;
-                    UART_sendstring(message);
+                    invalid_command_message(buffer);
                 }
+
+                strncpy(prev_buffer, buffer, BUFFER_SIZE);
 
                 buffer_index = 0; 
                 
-                buffer[buffer_index] = ' ';
+                memset(buffer, ' ', sizeof(buffer));
             }
-            else if (received_char == '\b') { //удаление символов
+
+            else if (received_char == 127 || received_char == '\b') { //стирание символа
                 if (buffer_index > 0) {
                     buffer_index--;
                 }
             }
-            
+
+            else if (received_char == ' ') { 
+                strncpy(buffer, prev_buffer, BUFFER_SIZE);
+                buffer_index = strlen(buffer);
+
+                UART_sendstring("\r");
+                for (int i = 0; i < BUFFER_SIZE; i++) {
+                    UART_sendstring(" ");
+                }
+                UART_sendstring("\r");
+
+                UART_sendstring(buffer);
+            }
+
             else {
-                if (buffer_index < 4) {
-                    buffer[buffer_index++] = received_char;
+                if (buffer_index < 5) {
+                    buffer[buffer_index++] = received_char; 
                 }
                 else {
-                    buffer_index = 0;
+                    buffer_index = 0; 
                 }
             }
         }
