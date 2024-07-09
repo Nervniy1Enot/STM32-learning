@@ -12,54 +12,45 @@ void UART_sendstring(const char *str) {
     }
 }
 
-void brightness_message_b(const char buffer[]) {
-    char message[60] = "\r\nThe brightness of the blue LED is set to ";
+void brightness_message(const char buffer[], char color) {
+    const char *blue_msg = "\r\nThe brightness of the blue LED is set to ";
+    const char *green_msg = "\r\nThe brightness of the green LED is set to ";
+    const char *both_msg = "\r\nThe brightness of both LEDs is set to ";
 
-    message[43] = buffer[1];
-    message[44] = buffer[2];
-    message[45] = ' ';
-    message[46] = '%';
-    message[47] = '\r'; 
-    message[48] = '\n';
-    message[49] = '\0';
+    char message[60];
+    uint8_t index = 0;
 
-    UART_sendstring(message);
-}
+    if (color == 'b') {
+        strcpy(message, blue_msg);
+        index = strlen(blue_msg); //42
+    } else if (color == 'g') {
+        strcpy(message, green_msg);
+        index = strlen(green_msg); //43
+    } else {
+        strcpy(message, both_msg);
+        index = strlen(both_msg); //39
+    }
 
-void brightness_message_g(const char buffer[]) {
-    char message[60] = "\r\nThe brightness of the green LED is set to ";
-
-    message[44] = buffer[1];
-    message[45] = buffer[2];
-    message[46] = ' ';
-    message[47] = '%';
-    message[48] = '\r';
-    message[49] = '\n';
-    message[50] = '\0';
-
-
-    UART_sendstring(message);
-}
-
-void brightness_message_bg(const char buffer[]) {
-    char message[60] = "\r\nThe brightness of both LEDs is set to ";
-
-    message[40] = buffer[2];
-    message[41] = buffer[3];
-    message[42] = ' ';
-    message[43] = '%';
-    message[44] = '\r';
-    message[45] = '\n';
-    message[46] = '\0';
+    message[index++] = buffer[1];
+    message[index++] = buffer[2];
+    message[index++] = ' ';
+    message[index++] = '%';
+    message[index++] = '\r';
+    message[index++] = '\n';
+    message[index] = '\0';
 
     UART_sendstring(message);
 }
 
 void invalid_command_message(const char buffer[]) {
-    char message[60] = "\r\nInvalid command ";
-    uint8_t index = 18;
+    const char *invalid_msg = "\r\nInvalid command ";
+    char message[60];
+    uint8_t index = 0;
 
-    for (int i = 0; i < 4; i++) {
+    strcpy(message, invalid_msg);
+    index = strlen(invalid_msg);
+
+    for (int i = 0; i < BUFFER_SIZE; i++) {
         if (buffer[i] != '\0') {
             message[index++] = buffer[i];
         }
@@ -73,9 +64,11 @@ void invalid_command_message(const char buffer[]) {
 }
 
 void info_message(const uint8_t b, const uint8_t g) {
+    const char *blue_inf_msg = "\r\nBrightness of blue LED - ";
+    const char *green_inf_msg = "Brightness of green LED - ";
     char message[60];
-    strcpy(message, "\r\nBrightness of blue LED - ");
-    uint8_t index = 27;
+    strcpy(message, blue_inf_msg);
+    uint8_t index = 26;
     
     message[index++] = '0' + (b / 10);
     message[index++] = '0' + (b % 10);
@@ -85,7 +78,7 @@ void info_message(const uint8_t b, const uint8_t g) {
 
     UART_sendstring(message);
 
-    strcpy(message, "Brightness of green LED - ");
+    strcpy(message, green_inf_msg);
     index = 26;
     
     message[index++] = '0' + (g / 10);
@@ -173,7 +166,7 @@ int main() {
 
                     b_brightness = brightness;
                     
-                    brightness_message_b(buffer);
+                    brightness_message(buffer, 'b');
 
                 } 
                 
@@ -184,7 +177,7 @@ int main() {
 
                     g_brightness = brightness;
 
-                    brightness_message_g(buffer);
+                   brightness_message(buffer, 'g');
                 }
 
                 else if (buffer_index == 4 && ((buffer[0] == 'g' && buffer[1] == 'b') || (buffer[0] == 'b' && buffer[1] == 'g')) 
@@ -197,7 +190,7 @@ int main() {
                     b_brightness = brightness;
                     g_brightness = brightness;
 
-                    brightness_message_bg(buffer);
+                    brightness_message(buffer, 'c');
                 }
                 else if (buffer_index == 3 && buffer[0] == 'i' && buffer[1] == 'n' && buffer[2] == 'f') {
 
