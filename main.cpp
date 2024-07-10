@@ -1,6 +1,5 @@
 #include <stdint.h>
 #include <stdbool.h>
-#include <string.h>
 #include "drivers\CMSIS\DeviceSupport\ST\STM32F10x\stm32f10x.h"
 
 #define BUFFER_SIZE 4
@@ -17,48 +16,76 @@ void brightness_message(const char buffer[], char color) {
     const char *green_msg = "\r\nThe brightness of the green LED is set to ";
     const char *both_msg = "\r\nThe brightness of both LEDs is set to ";
 
-    char message[60];
-    uint8_t index = 0;
+    char message[50];
+    const char *pref; 
+    char *msg_write = message; //указатель на буфер
 
     if (color == 'b') {
-        strcpy(message, blue_msg);
-        index = strlen(blue_msg); //42
+        pref = blue_msg;
     } else if (color == 'g') {
-        strcpy(message, green_msg);
-        index = strlen(green_msg); //43
+        pref = green_msg;
     } else {
-        strcpy(message, both_msg);
-        index = strlen(both_msg); //39
+        pref = both_msg;
     }
 
-    message[index++] = buffer[1];
-    message[index++] = buffer[2];
-    message[index++] = ' ';
-    message[index++] = '%';
-    message[index++] = '\r';
-    message[index++] = '\n';
-    message[index] = '\0';
+    while (*pref) {
+        *msg_write++ = *pref++;
+    }
+
+    if (color == 'b' || color == 'g') {
+        *msg_write++ = buffer[1];
+        *msg_write++ = buffer[2];
+    } 
+    else {
+        *msg_write++ = buffer[2];
+        *msg_write++ = buffer[3];
+    }
+    
+    *msg_write++ = ' ';
+    *msg_write++ = '%';
+    *msg_write++ = '\r';
+    *msg_write++ = '\n';
+    *msg_write = '\0';
 
     UART_sendstring(message);
 }
 
 void invalid_command_message(const char buffer[]) {
     const char *invalid_msg = "\r\nInvalid command ";
-    char message[60];
-    uint8_t index = 0;
 
-    strcpy(message, invalid_msg);
-    index = strlen(invalid_msg);
+    char message[50];
+    char *msg_write = message; //указатель на позицию
 
-    for (int i = 0; i < BUFFER_SIZE; i++) {
+    while (*invalid_msg) {
+        *msg_write++ = *invalid_msg++;
+    }
+
+    for (uint8_t i = 0; i < BUFFER_SIZE; i++) {
         if (buffer[i] != '\0') {
-            message[index++] = buffer[i];
+            *msg_write++ = buffer[i];
         }
     }
 
-    message[index++] = '\r';
-    message[index++] = '\n';
-    message[index] = '\0';
+    *msg_write++ = '\r';
+    *msg_write++ = '\n';
+    *msg_write = '\0';
+
+    UART_sendstring(message);
+}
+
+void info_message_helper(const char *inf_msg, uint8_t brightness) {
+    char message[60]; 
+    char *msg_write = message; 
+
+    while (*inf_msg) {
+        *msg_write++ = *inf_msg++;
+    }
+
+    *msg_write++ = '0' + (brightness / 10);
+    *msg_write++ = '0' + (brightness % 10);
+    *msg_write++ = '\r';
+    *msg_write++ = '\n';
+    *msg_write = '\0';
 
     UART_sendstring(message);
 }
@@ -66,28 +93,10 @@ void invalid_command_message(const char buffer[]) {
 void info_message(const uint8_t b, const uint8_t g) {
     const char *blue_inf_msg = "\r\nBrightness of blue LED - ";
     const char *green_inf_msg = "Brightness of green LED - ";
-    char message[60];
-    strcpy(message, blue_inf_msg);
-    uint8_t index = 26;
-    
-    message[index++] = '0' + (b / 10);
-    message[index++] = '0' + (b % 10);
-    message[index++] = '\r';
-    message[index++] = '\n';
-    message[index] = '\0';
 
-    UART_sendstring(message);
+    info_message_helper(blue_inf_msg, b);
 
-    strcpy(message, green_inf_msg);
-    index = 26;
-    
-    message[index++] = '0' + (g / 10);
-    message[index++] = '0' + (g % 10);
-    message[index++] = '\r';
-    message[index++] = '\n';
-    message[index] = '\0';
-
-    UART_sendstring(message);
+    info_message_helper(green_inf_msg, g);
 }
 
 int main() {
@@ -159,26 +168,24 @@ int main() {
             if (received_char == '\r' || received_char == '\n') {
                 buffer[buffer_index] = '\0';
                 
-                if (buffer_index == 3 && buffer[0] == 'b' && buffer[1] >= '0' && buffer[1] <= '9' && buffer[2] >= '0' && buffer[2] <= '9') {
+                if (buffer_index == 3 && buffer[1] >= '0' && buffer[1] <= '9' && buffer[2] >= '0' && buffer[2] <= '9') {
                     brightness = ((buffer[1] - '0') << 3) + ((buffer[1] - '0') << 1) + (buffer[2] - '0');
 
-                    TIM3->CCR3 = brightness; //голубой
-
-                    b_brightness = brightness;
-                    
-                    brightness_message(buffer, 'b');
+                    if (buffer[0] == 'b') {
+                        TIM3->CCR3 = brightness;
+                        b_brightness = brightness;
+                        brightness_message(buffer, 'b');
+                    } 
+                    else if (buffer[0] == 'b') {
+                        TIM3->CCR4 = brightness;
+                        g_brightness = brightness;
+                        brightness_message(buffer, 'g');
+                    }
+                    else {
+                        invalid_command_message(buffer);
+                    }
 
                 } 
-                
-                else if (buffer_index == 3 && buffer[0] == 'g' && buffer[1] >= '0' && buffer[1] <= '9' && buffer[2] >= '0' && buffer[2] <= '9') {
-                    brightness = ((buffer[1] - '0') << 3) + ((buffer[1] - '0') << 1) + (buffer[2] - '0');
-
-                    TIM3->CCR4 = brightness; //зеленый
-
-                    g_brightness = brightness;
-
-                   brightness_message(buffer, 'g');
-                }
 
                 else if (buffer_index == 4 && ((buffer[0] == 'g' && buffer[1] == 'b') || (buffer[0] == 'b' && buffer[1] == 'g')) 
                           && buffer[2] >= '0' && buffer[2] <= '9' && buffer[3] >= '0' && buffer[3] <= '9') {
@@ -200,11 +207,15 @@ int main() {
                     invalid_command_message(buffer);
                 }
 
-                strncpy(prev_buffer, buffer, BUFFER_SIZE);
-
                 buffer_index = 0; 
                 
-                memset(buffer, ' ', sizeof(buffer));
+                for (int i = 0; i < BUFFER_SIZE; i++) {
+                    prev_buffer[i] = buffer[i];
+                }
+                
+                for (int i = 0; i < BUFFER_SIZE; i++) {
+                    buffer[i] = ' ';
+                };
             }
 
             else if (received_char == 127 || received_char == '\b') { //стирание символа
@@ -214,10 +225,18 @@ int main() {
             }
 
             else if (received_char == ' ') { 
-                strncpy(buffer, prev_buffer, BUFFER_SIZE);
-                buffer_index = strlen(buffer);
+
+                for (int i = 0; i < BUFFER_SIZE; i++) {
+                    buffer[i] = prev_buffer[i];
+                };
+
+                buffer_index = 0;
+                while (buffer_index < BUFFER_SIZE && buffer[buffer_index] != '\0') {
+                    buffer_index++;
+                }
 
                 UART_sendstring("\r");
+                
                 for (int i = 0; i < BUFFER_SIZE; i++) {
                     UART_sendstring(" ");
                 }

@@ -12,10 +12,6 @@ e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../
                               e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/crt0.o (__libc_init_array)
 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memset.o)
                               e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/crt0.o (memset)
-e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-strlen-stub.o)
-                              CMakeFiles/FIRST.elf.dir/main.cpp.obj (strlen)
-e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-strncpy.o)
-                              CMakeFiles/FIRST.elf.dir/main.cpp.obj (strncpy)
 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-__atexit.o)
                               e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-atexit.o) (__register_exitproc)
 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-__call_atexit.o)
@@ -50,6 +46,8 @@ Discarded input sections
  .ARM.extab.text._Z18brightness_messagePKcc
                 0x0000000000000000        0x0 CMakeFiles/FIRST.elf.dir/main.cpp.obj
  .ARM.extab.text._Z23invalid_command_messagePKc
+                0x0000000000000000        0x0 CMakeFiles/FIRST.elf.dir/main.cpp.obj
+ .ARM.extab.text._Z19info_message_helperPKch
                 0x0000000000000000        0x0 CMakeFiles/FIRST.elf.dir/main.cpp.obj
  .ARM.extab.text._Z12info_messagehh
                 0x0000000000000000        0x0 CMakeFiles/FIRST.elf.dir/main.cpp.obj
@@ -97,10 +95,6 @@ Discarded input sections
  .debug_frame   0x0000000000000000       0x2c e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memset.o)
  .ARM.attributes
                 0x0000000000000000       0x2d e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memset.o)
- .data          0x0000000000000000        0x0 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-strlen-stub.o)
- .bss           0x0000000000000000        0x0 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-strlen-stub.o)
- .data          0x0000000000000000        0x0 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-strncpy.o)
- .bss           0x0000000000000000        0x0 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-strncpy.o)
  .text          0x0000000000000000       0xcc e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-__atexit.o)
  .data          0x0000000000000000        0x4 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-__atexit.o)
  .bss           0x0000000000000000       0x8c e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-__atexit.o)
@@ -172,7 +166,7 @@ LOAD e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v
                 0x0000000008000000                g_pfnVectors
                 0x00000000080001d0                . = ALIGN (0x4)
 
-.text           0x00000000080001d0      0x8b4
+.text           0x00000000080001d0      0x758
                 0x00000000080001d0                . = ALIGN (0x4)
  *(.text)
  .text          0x00000000080001d0      0x230 drivers/CMSIS/CMakeFiles/cmsis.dir/DeviceSupport/ST/STM32F10x/system_stm32f10x.c.obj
@@ -180,184 +174,186 @@ LOAD e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v
                 0x0000000008000240                SystemCoreClockUpdate
  .text          0x0000000008000400       0x48 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-init.o)
                 0x0000000008000400                __libc_init_array
- .text          0x0000000008000448       0x5c e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-strlen-stub.o)
-                0x0000000008000448                strlen
- .text          0x00000000080004a4       0x68 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-strncpy.o)
-                0x00000000080004a4                strncpy
  *(.text*)
  .text.__do_global_dtors_aux
-                0x000000000800050c       0x24 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crtbegin.o
+                0x0000000008000448       0x24 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crtbegin.o
  .text.frame_dummy
-                0x0000000008000530       0x1c e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crtbegin.o
+                0x000000000800046c       0x1c e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crtbegin.o
  .text._Z15UART_sendstringPKc
-                0x000000000800054c       0x20 CMakeFiles/FIRST.elf.dir/main.cpp.obj
-                0x000000000800054c                UART_sendstring(char const*)
+                0x0000000008000488       0x20 CMakeFiles/FIRST.elf.dir/main.cpp.obj
+                0x0000000008000488                UART_sendstring(char const*)
  .text._Z18brightness_messagePKcc
-                0x000000000800056c       0xcc CMakeFiles/FIRST.elf.dir/main.cpp.obj
-                0x000000000800056c                brightness_message(char const*, char)
+                0x00000000080004a8       0x84 CMakeFiles/FIRST.elf.dir/main.cpp.obj
+                0x00000000080004a8                brightness_message(char const*, char)
  .text._Z23invalid_command_messagePKc
-                0x0000000008000638       0x7c CMakeFiles/FIRST.elf.dir/main.cpp.obj
-                0x0000000008000638                invalid_command_message(char const*)
+                0x000000000800052c       0x4c CMakeFiles/FIRST.elf.dir/main.cpp.obj
+                0x000000000800052c                invalid_command_message(char const*)
+ .text._Z19info_message_helperPKch
+                0x0000000008000578       0x50 CMakeFiles/FIRST.elf.dir/main.cpp.obj
+                0x0000000008000578                info_message_helper(char const*, unsigned char)
  .text._Z12info_messagehh
-                0x00000000080006b4       0xa0 CMakeFiles/FIRST.elf.dir/main.cpp.obj
-                0x00000000080006b4                info_message(unsigned char, unsigned char)
- .text.main     0x0000000008000754      0x2cc CMakeFiles/FIRST.elf.dir/main.cpp.obj
-                0x0000000008000754                main
+                0x00000000080005c8       0x20 CMakeFiles/FIRST.elf.dir/main.cpp.obj
+                0x00000000080005c8                info_message(unsigned char, unsigned char)
+ .text.main     0x00000000080005e8      0x2dc CMakeFiles/FIRST.elf.dir/main.cpp.obj
+                0x00000000080005e8                main
  .text.Reset_Handler
-                0x0000000008000a20       0x48 CMakeFiles/FIRST.elf.dir/startup_stm32f100rbtx.s.obj
-                0x0000000008000a20                Reset_Handler
+                0x00000000080008c4       0x48 CMakeFiles/FIRST.elf.dir/startup_stm32f100rbtx.s.obj
+                0x00000000080008c4                Reset_Handler
  .text.Default_Handler
-                0x0000000008000a68        0x2 CMakeFiles/FIRST.elf.dir/startup_stm32f100rbtx.s.obj
-                0x0000000008000a68                RTC_Alarm_IRQHandler
-                0x0000000008000a68                EXTI2_IRQHandler
-                0x0000000008000a68                DebugMon_Handler
-                0x0000000008000a68                TIM1_CC_IRQHandler
-                0x0000000008000a68                HardFault_Handler
-                0x0000000008000a68                SysTick_Handler
-                0x0000000008000a68                PVD_IRQHandler
-                0x0000000008000a68                PendSV_Handler
-                0x0000000008000a68                NMI_Handler
-                0x0000000008000a68                EXTI3_IRQHandler
-                0x0000000008000a68                EXTI0_IRQHandler
-                0x0000000008000a68                TIM1_UP_TIM16_IRQHandler
-                0x0000000008000a68                UsageFault_Handler
-                0x0000000008000a68                SPI1_IRQHandler
-                0x0000000008000a68                TAMPER_IRQHandler
-                0x0000000008000a68                TIM6_DAC_IRQHandler
-                0x0000000008000a68                DMA1_Channel4_IRQHandler
-                0x0000000008000a68                ADC1_IRQHandler
-                0x0000000008000a68                USART3_IRQHandler
-                0x0000000008000a68                RTC_IRQHandler
-                0x0000000008000a68                DMA1_Channel7_IRQHandler
-                0x0000000008000a68                TIM4_IRQHandler
-                0x0000000008000a68                I2C1_EV_IRQHandler
-                0x0000000008000a68                DMA1_Channel6_IRQHandler
-                0x0000000008000a68                TIM3_IRQHandler
-                0x0000000008000a68                RCC_IRQHandler
-                0x0000000008000a68                DMA1_Channel1_IRQHandler
-                0x0000000008000a68                Default_Handler
-                0x0000000008000a68                CEC_IRQHandler
-                0x0000000008000a68                EXTI15_10_IRQHandler
-                0x0000000008000a68                TIM7_IRQHandler
-                0x0000000008000a68                EXTI9_5_IRQHandler
-                0x0000000008000a68                SPI2_IRQHandler
-                0x0000000008000a68                MemManage_Handler
-                0x0000000008000a68                SVC_Handler
-                0x0000000008000a68                DMA1_Channel5_IRQHandler
-                0x0000000008000a68                EXTI4_IRQHandler
-                0x0000000008000a68                TIM1_TRG_COM_TIM17_IRQHandler
-                0x0000000008000a68                DMA1_Channel3_IRQHandler
-                0x0000000008000a68                WWDG_IRQHandler
-                0x0000000008000a68                TIM2_IRQHandler
-                0x0000000008000a68                EXTI1_IRQHandler
-                0x0000000008000a68                USART2_IRQHandler
-                0x0000000008000a68                DMA1_Channel2_IRQHandler
-                0x0000000008000a68                FLASH_IRQHandler
-                0x0000000008000a68                BusFault_Handler
-                0x0000000008000a68                USART1_IRQHandler
-                0x0000000008000a68                I2C1_ER_IRQHandler
-                0x0000000008000a68                TIM1_BRK_TIM15_IRQHandler
+                0x000000000800090c        0x2 CMakeFiles/FIRST.elf.dir/startup_stm32f100rbtx.s.obj
+                0x000000000800090c                RTC_Alarm_IRQHandler
+                0x000000000800090c                EXTI2_IRQHandler
+                0x000000000800090c                DebugMon_Handler
+                0x000000000800090c                TIM1_CC_IRQHandler
+                0x000000000800090c                HardFault_Handler
+                0x000000000800090c                SysTick_Handler
+                0x000000000800090c                PVD_IRQHandler
+                0x000000000800090c                PendSV_Handler
+                0x000000000800090c                NMI_Handler
+                0x000000000800090c                EXTI3_IRQHandler
+                0x000000000800090c                EXTI0_IRQHandler
+                0x000000000800090c                TIM1_UP_TIM16_IRQHandler
+                0x000000000800090c                UsageFault_Handler
+                0x000000000800090c                SPI1_IRQHandler
+                0x000000000800090c                TAMPER_IRQHandler
+                0x000000000800090c                TIM6_DAC_IRQHandler
+                0x000000000800090c                DMA1_Channel4_IRQHandler
+                0x000000000800090c                ADC1_IRQHandler
+                0x000000000800090c                USART3_IRQHandler
+                0x000000000800090c                RTC_IRQHandler
+                0x000000000800090c                DMA1_Channel7_IRQHandler
+                0x000000000800090c                TIM4_IRQHandler
+                0x000000000800090c                I2C1_EV_IRQHandler
+                0x000000000800090c                DMA1_Channel6_IRQHandler
+                0x000000000800090c                TIM3_IRQHandler
+                0x000000000800090c                RCC_IRQHandler
+                0x000000000800090c                DMA1_Channel1_IRQHandler
+                0x000000000800090c                Default_Handler
+                0x000000000800090c                CEC_IRQHandler
+                0x000000000800090c                EXTI15_10_IRQHandler
+                0x000000000800090c                TIM7_IRQHandler
+                0x000000000800090c                EXTI9_5_IRQHandler
+                0x000000000800090c                SPI2_IRQHandler
+                0x000000000800090c                MemManage_Handler
+                0x000000000800090c                SVC_Handler
+                0x000000000800090c                DMA1_Channel5_IRQHandler
+                0x000000000800090c                EXTI4_IRQHandler
+                0x000000000800090c                TIM1_TRG_COM_TIM17_IRQHandler
+                0x000000000800090c                DMA1_Channel3_IRQHandler
+                0x000000000800090c                WWDG_IRQHandler
+                0x000000000800090c                TIM2_IRQHandler
+                0x000000000800090c                EXTI1_IRQHandler
+                0x000000000800090c                USART2_IRQHandler
+                0x000000000800090c                DMA1_Channel2_IRQHandler
+                0x000000000800090c                FLASH_IRQHandler
+                0x000000000800090c                BusFault_Handler
+                0x000000000800090c                USART1_IRQHandler
+                0x000000000800090c                I2C1_ER_IRQHandler
+                0x000000000800090c                TIM1_BRK_TIM15_IRQHandler
  *(.glue_7)
- .glue_7        0x0000000008000a6a        0x0 linker stubs
+ .glue_7        0x000000000800090e        0x0 linker stubs
  *(.glue_7t)
- .glue_7t       0x0000000008000a6a        0x0 linker stubs
+ .glue_7t       0x000000000800090e        0x0 linker stubs
  *(.eh_frame)
- *fill*         0x0000000008000a6a        0x2 
- .eh_frame      0x0000000008000a6c        0x0 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crtbegin.o
+ *fill*         0x000000000800090e        0x2 
+ .eh_frame      0x0000000008000910        0x0 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crtbegin.o
  *(.init)
- .init          0x0000000008000a6c        0x4 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crti.o
-                0x0000000008000a6c                _init
- .init          0x0000000008000a70        0x8 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crtn.o
+ .init          0x0000000008000910        0x4 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crti.o
+                0x0000000008000910                _init
+ .init          0x0000000008000914        0x8 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crtn.o
  *(.fini)
- .fini          0x0000000008000a78        0x4 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crti.o
-                0x0000000008000a78                _fini
- .fini          0x0000000008000a7c        0x8 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crtn.o
-                0x0000000008000a84                . = ALIGN (0x4)
-                0x0000000008000a84                _etext = .
+ .fini          0x000000000800091c        0x4 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crti.o
+                0x000000000800091c                _fini
+ .fini          0x0000000008000920        0x8 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crtn.o
+                0x0000000008000928                . = ALIGN (0x4)
+                0x0000000008000928                _etext = .
 
-.vfp11_veneer   0x0000000008000a84        0x0
- .vfp11_veneer  0x0000000008000a84        0x0 linker stubs
+.vfp11_veneer   0x0000000008000928        0x0
+ .vfp11_veneer  0x0000000008000928        0x0 linker stubs
 
-.v4_bx          0x0000000008000a84        0x0
- .v4_bx         0x0000000008000a84        0x0 linker stubs
+.v4_bx          0x0000000008000928        0x0
+ .v4_bx         0x0000000008000928        0x0 linker stubs
 
-.iplt           0x0000000008000a84        0x0
- .iplt          0x0000000008000a84        0x0 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crtbegin.o
+.iplt           0x0000000008000928        0x0
+ .iplt          0x0000000008000928        0x0 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crtbegin.o
 
-.rodata         0x0000000008000a84       0xdc
-                0x0000000008000a84                . = ALIGN (0x4)
+.rodata         0x0000000008000928       0xdc
+                0x0000000008000928                . = ALIGN (0x4)
  *(.rodata)
  *(.rodata*)
  .rodata._Z18brightness_messagePKcc.str1.4
-                0x0000000008000a84       0x85 CMakeFiles/FIRST.elf.dir/main.cpp.obj
- *fill*         0x0000000008000b09        0x3 
+                0x0000000008000928       0x85 CMakeFiles/FIRST.elf.dir/main.cpp.obj
+ *fill*         0x00000000080009ad        0x3 
  .rodata._Z23invalid_command_messagePKc.str1.4
-                0x0000000008000b0c       0x13 CMakeFiles/FIRST.elf.dir/main.cpp.obj
- *fill*         0x0000000008000b1f        0x1 
+                0x00000000080009b0       0x13 CMakeFiles/FIRST.elf.dir/main.cpp.obj
+ *fill*         0x00000000080009c3        0x1 
  .rodata._Z12info_messagehh.str1.4
-                0x0000000008000b20       0x37 CMakeFiles/FIRST.elf.dir/main.cpp.obj
- *fill*         0x0000000008000b57        0x1 
+                0x00000000080009c4       0x37 CMakeFiles/FIRST.elf.dir/main.cpp.obj
+ *fill*         0x00000000080009fb        0x1 
  .rodata.main.str1.4
-                0x0000000008000b58        0x6 CMakeFiles/FIRST.elf.dir/main.cpp.obj
-                0x0000000008000b60                . = ALIGN (0x4)
- *fill*         0x0000000008000b5e        0x2 
+                0x00000000080009fc        0x6 CMakeFiles/FIRST.elf.dir/main.cpp.obj
+                0x0000000008000a04                . = ALIGN (0x4)
+ *fill*         0x0000000008000a02        0x2 
 
-.ARM.extab      0x0000000008000b60        0x0
-                0x0000000008000b60                . = ALIGN (0x4)
+.ARM.extab      0x0000000008000a04        0x0
+                0x0000000008000a04                . = ALIGN (0x4)
  *(.ARM.extab* .gnu.linkonce.armextab.*)
-                0x0000000008000b60                . = ALIGN (0x4)
+                0x0000000008000a04                . = ALIGN (0x4)
 
-.ARM            0x0000000008000b60        0x8
-                0x0000000008000b60                . = ALIGN (0x4)
-                0x0000000008000b60                __exidx_start = .
+.ARM            0x0000000008000a04        0x8
+                0x0000000008000a04                . = ALIGN (0x4)
+                0x0000000008000a04                __exidx_start = .
  *(.ARM.exidx*)
  .ARM.exidx.text._Z15UART_sendstringPKc
-                0x0000000008000b60        0x8 CMakeFiles/FIRST.elf.dir/main.cpp.obj
+                0x0000000008000a04        0x8 CMakeFiles/FIRST.elf.dir/main.cpp.obj
  .ARM.exidx.text._Z18brightness_messagePKcc
-                0x0000000008000b68        0x0 CMakeFiles/FIRST.elf.dir/main.cpp.obj
+                0x0000000008000a0c        0x0 CMakeFiles/FIRST.elf.dir/main.cpp.obj
                                           0x8 (size before relaxing)
  .ARM.exidx.text._Z23invalid_command_messagePKc
-                0x0000000008000b68        0x0 CMakeFiles/FIRST.elf.dir/main.cpp.obj
+                0x0000000008000a0c        0x0 CMakeFiles/FIRST.elf.dir/main.cpp.obj
+                                          0x8 (size before relaxing)
+ .ARM.exidx.text._Z19info_message_helperPKch
+                0x0000000008000a0c        0x0 CMakeFiles/FIRST.elf.dir/main.cpp.obj
                                           0x8 (size before relaxing)
  .ARM.exidx.text._Z12info_messagehh
-                0x0000000008000b68        0x0 CMakeFiles/FIRST.elf.dir/main.cpp.obj
+                0x0000000008000a0c        0x0 CMakeFiles/FIRST.elf.dir/main.cpp.obj
                                           0x8 (size before relaxing)
  .ARM.exidx.text.main
-                0x0000000008000b68        0x0 CMakeFiles/FIRST.elf.dir/main.cpp.obj
+                0x0000000008000a0c        0x0 CMakeFiles/FIRST.elf.dir/main.cpp.obj
                                           0x8 (size before relaxing)
-                0x0000000008000b68                __exidx_end = .
-                0x0000000008000b68                . = ALIGN (0x4)
+                0x0000000008000a0c                __exidx_end = .
+                0x0000000008000a0c                . = ALIGN (0x4)
 
-.rel.dyn        0x0000000008000b68        0x0
- .rel.iplt      0x0000000008000b68        0x0 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crtbegin.o
+.rel.dyn        0x0000000008000a0c        0x0
+ .rel.iplt      0x0000000008000a0c        0x0 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crtbegin.o
 
-.preinit_array  0x0000000008000b68        0x0
-                0x0000000008000b68                . = ALIGN (0x4)
-                0x0000000008000b68                PROVIDE (__preinit_array_start = .)
+.preinit_array  0x0000000008000a0c        0x0
+                0x0000000008000a0c                . = ALIGN (0x4)
+                0x0000000008000a0c                PROVIDE (__preinit_array_start = .)
  *(.preinit_array*)
-                0x0000000008000b68                PROVIDE (__preinit_array_end = .)
-                0x0000000008000b68                . = ALIGN (0x4)
+                0x0000000008000a0c                PROVIDE (__preinit_array_end = .)
+                0x0000000008000a0c                . = ALIGN (0x4)
 
-.init_array     0x0000000008000b68        0x4
-                0x0000000008000b68                . = ALIGN (0x4)
-                0x0000000008000b68                PROVIDE (__init_array_start = .)
+.init_array     0x0000000008000a0c        0x4
+                0x0000000008000a0c                . = ALIGN (0x4)
+                0x0000000008000a0c                PROVIDE (__init_array_start = .)
  *(SORT_BY_NAME(.init_array.*))
  *(.init_array*)
- .init_array    0x0000000008000b68        0x4 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crtbegin.o
-                0x0000000008000b6c                PROVIDE (__init_array_end = .)
-                0x0000000008000b6c                . = ALIGN (0x4)
+ .init_array    0x0000000008000a0c        0x4 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crtbegin.o
+                0x0000000008000a10                PROVIDE (__init_array_end = .)
+                0x0000000008000a10                . = ALIGN (0x4)
 
-.fini_array     0x0000000008000b6c        0x4
-                0x0000000008000b6c                . = ALIGN (0x4)
-                0x0000000008000b6c                PROVIDE (__fini_array_start = .)
+.fini_array     0x0000000008000a10        0x4
+                0x0000000008000a10                . = ALIGN (0x4)
+                0x0000000008000a10                PROVIDE (__fini_array_start = .)
  *(SORT_BY_NAME(.fini_array.*))
  *(.fini_array*)
- .fini_array    0x0000000008000b6c        0x4 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crtbegin.o
-                0x0000000008000b70                PROVIDE (__fini_array_end = .)
-                0x0000000008000b70                . = ALIGN (0x4)
-                0x0000000008000b70                _sidata = LOADADDR (.data)
+ .fini_array    0x0000000008000a10        0x4 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crtbegin.o
+                0x0000000008000a14                PROVIDE (__fini_array_end = .)
+                0x0000000008000a14                . = ALIGN (0x4)
+                0x0000000008000a14                _sidata = LOADADDR (.data)
 
-.data           0x0000000020000000       0x14 load address 0x0000000008000b70
+.data           0x0000000020000000       0x14 load address 0x0000000008000a14
                 0x0000000020000000                . = ALIGN (0x4)
                 0x0000000020000000                _sdata = .
  *(.data)
@@ -370,11 +366,11 @@ LOAD e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v
                 0x0000000020000014                . = ALIGN (0x4)
                 0x0000000020000014                _edata = .
 
-.igot.plt       0x0000000020000014        0x0 load address 0x0000000008000b84
+.igot.plt       0x0000000020000014        0x0 load address 0x0000000008000a28
  .igot.plt      0x0000000020000014        0x0 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crtbegin.o
                 0x0000000020000014                . = ALIGN (0x4)
 
-.bss            0x0000000020000014       0x1c load address 0x0000000008000b84
+.bss            0x0000000020000014       0x1c load address 0x0000000008000a28
                 0x0000000020000014                _sbss = .
                 0x0000000020000014                __bss_start__ = _sbss
  *(.bss)
@@ -389,7 +385,7 @@ LOAD e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v
                 0x0000000020000030                __bss_end__ = _ebss
 
 ._user_heap_stack
-                0x0000000020000030      0x600 load address 0x0000000008000b84
+                0x0000000020000030      0x600 load address 0x0000000008000a28
                 0x0000000020000030                . = ALIGN (0x8)
                 [!provide]                        PROVIDE (end = .)
                 [!provide]                        PROVIDE (_end = .)
@@ -420,51 +416,47 @@ LOAD e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v
  .ARM.attributes
                 0x00000000000000c5       0x2d e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-init.o)
  .ARM.attributes
-                0x00000000000000f2       0x2d e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-strlen-stub.o)
- .ARM.attributes
-                0x000000000000011f       0x2d e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-strncpy.o)
- .ARM.attributes
-                0x000000000000014c       0x1d e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crtn.o
+                0x00000000000000f2       0x1d e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp/crtn.o
 OUTPUT(FIRST.elf elf32-littlearm)
 LOAD linker stubs
 LOAD e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc.a
 LOAD e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libm.a
 LOAD e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v7-m/nofp\libgcc.a
 
-.debug_info     0x0000000000000000      0xa1f
- .debug_info    0x0000000000000000      0x9f1 CMakeFiles/FIRST.elf.dir/main.cpp.obj
- .debug_info    0x00000000000009f1       0x2e CMakeFiles/FIRST.elf.dir/startup_stm32f100rbtx.s.obj
+.debug_info     0x0000000000000000      0xa0e
+ .debug_info    0x0000000000000000      0x9e0 CMakeFiles/FIRST.elf.dir/main.cpp.obj
+ .debug_info    0x00000000000009e0       0x2e CMakeFiles/FIRST.elf.dir/startup_stm32f100rbtx.s.obj
 
-.debug_abbrev   0x0000000000000000      0x1d1
- .debug_abbrev  0x0000000000000000      0x1b4 CMakeFiles/FIRST.elf.dir/main.cpp.obj
- .debug_abbrev  0x00000000000001b4       0x1d CMakeFiles/FIRST.elf.dir/startup_stm32f100rbtx.s.obj
+.debug_abbrev   0x0000000000000000      0x1c0
+ .debug_abbrev  0x0000000000000000      0x1a3 CMakeFiles/FIRST.elf.dir/main.cpp.obj
+ .debug_abbrev  0x00000000000001a3       0x1d CMakeFiles/FIRST.elf.dir/startup_stm32f100rbtx.s.obj
 
 .debug_loclists
-                0x0000000000000000      0x37a
+                0x0000000000000000      0x46e
  .debug_loclists
-                0x0000000000000000      0x37a CMakeFiles/FIRST.elf.dir/main.cpp.obj
+                0x0000000000000000      0x46e CMakeFiles/FIRST.elf.dir/main.cpp.obj
 
-.debug_aranges  0x0000000000000000       0x68
+.debug_aranges  0x0000000000000000       0x70
  .debug_aranges
-                0x0000000000000000       0x40 CMakeFiles/FIRST.elf.dir/main.cpp.obj
+                0x0000000000000000       0x48 CMakeFiles/FIRST.elf.dir/main.cpp.obj
  .debug_aranges
-                0x0000000000000040       0x28 CMakeFiles/FIRST.elf.dir/startup_stm32f100rbtx.s.obj
+                0x0000000000000048       0x28 CMakeFiles/FIRST.elf.dir/startup_stm32f100rbtx.s.obj
 
 .debug_rnglists
-                0x0000000000000000       0x61
+                0x0000000000000000       0x5a
  .debug_rnglists
-                0x0000000000000000       0x48 CMakeFiles/FIRST.elf.dir/main.cpp.obj
+                0x0000000000000000       0x41 CMakeFiles/FIRST.elf.dir/main.cpp.obj
  .debug_rnglists
-                0x0000000000000048       0x19 CMakeFiles/FIRST.elf.dir/startup_stm32f100rbtx.s.obj
+                0x0000000000000041       0x19 CMakeFiles/FIRST.elf.dir/startup_stm32f100rbtx.s.obj
 
-.debug_line     0x0000000000000000      0x76a
- .debug_line    0x0000000000000000      0x6f2 CMakeFiles/FIRST.elf.dir/main.cpp.obj
- .debug_line    0x00000000000006f2       0x78 CMakeFiles/FIRST.elf.dir/startup_stm32f100rbtx.s.obj
+.debug_line     0x0000000000000000      0x778
+ .debug_line    0x0000000000000000      0x700 CMakeFiles/FIRST.elf.dir/main.cpp.obj
+ .debug_line    0x0000000000000700       0x78 CMakeFiles/FIRST.elf.dir/startup_stm32f100rbtx.s.obj
 
-.debug_str      0x0000000000000000      0x49b
- .debug_str     0x0000000000000000      0x45c CMakeFiles/FIRST.elf.dir/main.cpp.obj
-                                        0x50f (size before relaxing)
- .debug_str     0x000000000000045c       0x3f CMakeFiles/FIRST.elf.dir/startup_stm32f100rbtx.s.obj
+.debug_str      0x0000000000000000      0x498
+ .debug_str     0x0000000000000000      0x459 CMakeFiles/FIRST.elf.dir/main.cpp.obj
+                                        0x50e (size before relaxing)
+ .debug_str     0x0000000000000459       0x3f CMakeFiles/FIRST.elf.dir/startup_stm32f100rbtx.s.obj
                                          0x52 (size before relaxing)
 
 .comment        0x0000000000000000       0x12
@@ -472,11 +464,9 @@ LOAD e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/thumb/v
                                          0x13 (size before relaxing)
  .comment       0x0000000000000012       0x13 drivers/CMSIS/CMakeFiles/cmsis.dir/DeviceSupport/ST/STM32F10x/system_stm32f10x.c.obj
 
-.debug_frame    0x0000000000000000      0x124
- .debug_frame   0x0000000000000000       0xac CMakeFiles/FIRST.elf.dir/main.cpp.obj
- .debug_frame   0x00000000000000ac       0x2c e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-init.o)
- .debug_frame   0x00000000000000d8       0x20 e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-strlen-stub.o)
- .debug_frame   0x00000000000000f8       0x2c e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-strncpy.o)
+.debug_frame    0x0000000000000000       0xe4
+ .debug_frame   0x0000000000000000       0xb8 CMakeFiles/FIRST.elf.dir/main.cpp.obj
+ .debug_frame   0x00000000000000b8       0x2c e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-init.o)
 
 .debug_line_str
                 0x0000000000000000       0x38
@@ -647,6 +637,7 @@ exit                                              e:/program files/msys64/mingw6
 g_pfnVectors                                      CMakeFiles/FIRST.elf.dir/startup_stm32f100rbtx.s.obj
 hardware_init_hook                                e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/crt0.o
 info_message(unsigned char, unsigned char)        CMakeFiles/FIRST.elf.dir/main.cpp.obj
+info_message_helper(char const*, unsigned char)   CMakeFiles/FIRST.elf.dir/main.cpp.obj
 invalid_command_message(char const*)              CMakeFiles/FIRST.elf.dir/main.cpp.obj
 main                                              CMakeFiles/FIRST.elf.dir/main.cpp.obj
                                                   CMakeFiles/FIRST.elf.dir/startup_stm32f100rbtx.s.obj
@@ -655,7 +646,3 @@ malloc                                            e:/program files/msys64/mingw6
 memset                                            e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-memset.o)
                                                   e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/crt0.o
 software_init_hook                                e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp/crt0.o
-strlen                                            e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-strlen-stub.o)
-                                                  CMakeFiles/FIRST.elf.dir/main.cpp.obj
-strncpy                                           e:/program files/msys64/mingw64/bin/../lib/gcc/arm-none-eabi/12.2.0/../../../../arm-none-eabi/lib/thumb/v7-m/nofp\libc_nano.a(lib_a-strncpy.o)
-                                                  CMakeFiles/FIRST.elf.dir/main.cpp.obj
