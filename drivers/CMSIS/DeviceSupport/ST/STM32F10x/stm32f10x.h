@@ -478,7 +478,7 @@ typedef enum IRQn
   * @}
   */
 
-#include "E:\proj\test\drivers\CMSIS\CoreSupport\core_cm3.h" //изменено 
+#include "core_cm3.h" 
 #include "system_stm32f10x.h"
 #include <stdint.h>
 
